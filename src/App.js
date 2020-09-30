@@ -4,6 +4,12 @@ import "./App.css";
 
 function App() {
   const [display, setDisplay] = useState("initial display");
+  const [calc, setCalc] = useState("0");
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -13,6 +19,15 @@ function App() {
         <button onClick={() => setDisplay("updated display")}>Click me!</button>
         <button onClick={() => setDisplay("initial display")}>Reset</button>
         <p>{3 + 5 * 6 - 2 / 4}</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={calc}
+            onChange={(e) => setCalc(e.target.value)}
+          />
+          <input type="submit" value="=" />
+        </form>
+        <p>{parseFloat(calc, 10)}</p>
       </header>
     </div>
   );
