@@ -18,7 +18,7 @@ User Story #2: My calculator should contain 10 clickable elements containing one
 
 - [ ] **User Story #6:** My calculator should contain an element to display values with a corresponding `id="display"`.
 
-U- [ ] **ser Story #7:** At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of `display`.
+- [ ] **ser Story #7:** At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of `display`.
 
 - [ ] **User Story #8:** As I input numbers, I should be able to see my input in the element with the id of `display`.
 
@@ -41,8 +41,19 @@ U- [ ] **ser Story #7:** At any time, pressing the clear button clears the input
 **EXAMPLE:** `3 + 5 x 6 - 2 / 4 =`
 
 - **Immediate Execution Logic:** `11.5`
-- **Formula/Expression Logic:** `32.5`
+- **Formula Expression Logic:** `32.5`
 
 You can build your project by forking this CodePen pen. Or you can use this CDN link to run the tests in any environment you like: https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js
 
 Once you're done, submit the URL to your working project with all its tests passing.
+
+---
+
+# ToDo:
+
+- [ ] Create the keypad and assign each button an ID.
+- [ ] Create a "state" for the inputs to be saved.
+- [ ] Store inputs as a string and convert back to number after to create a formula logic.
+- [ ] Create a display to show inputs.
+- [ ] Create checks to make sure your equation is correct.
+- [ ] Do I have to deal with the JS decimal bug?
