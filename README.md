@@ -51,10 +51,10 @@ Once you're done, submit the URL to your working project with all its tests pass
 
 # ToDo:
 
-- [ ] install mathjs.
+- [x] install mathjs.
+- [x] Create a "state" for the inputs to be saved.
+- [x] Store inputs as a string and convert back to number to create a formula logic.
 - [ ] Create the keypad and assign each button an ID.
-- [ ] Create a "state" for the inputs to be saved.
-- [ ] Store inputs as a string and convert back to number after to create a formula logic.
 - [ ] Create a display to show inputs.
-- [ ] Create checks to make sure your equation is correct.
+- [ ] Create checks to make sure your equation is correct. Probably using Regex?
 - [ ] Do I have to deal with the JS decimal bug?
