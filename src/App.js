@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { evaluate, format } from "mathjs";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   const [display, setDisplay] = useState("initial display");
-  const [calc, setCalc] = useState("0");
+  const [calc, setCalc] = useState("1");
+  const [result, setResult] = useState(0);
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`calc= ${e}`);
+    console.log(e);
+    console.log(calc);
+    setResult(calc);
   };
 
   return (
@@ -19,6 +25,7 @@ function App() {
         <button onClick={() => setDisplay("updated display")}>Click me!</button>
         <button onClick={() => setDisplay("initial display")}>Reset</button>
         <p>{3 + 5 * 6 - 2 / 4}</p>
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -27,7 +34,7 @@ function App() {
           />
           <input type="submit" value="=" />
         </form>
-        <p>{parseFloat(calc, 10)}</p>
+        <p>{format(evaluate(result), { precision: 14 })}</p>
       </header>
     </div>
   );
