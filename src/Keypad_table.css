@@ -2,16 +2,14 @@ table,
 th,
 td {
   border: 1px solid #525252;
-  margin: 0;
+  margin: ;
   padding: 0;
   height: 60px;
   width: 80px;
   overflow: hidden;
-  /* display: inline-block; */
   white-space: nowrap;
   text-align: center;
   vertical-align: middle;
-  background-color: #7c7c7c;
   color: #ebebeb;
   font: Helvetica;
   font-size: 150%;
@@ -19,11 +17,7 @@ td {
 
 table {
   table-layout: fixed;
-}
-
-.btn-custom {
-  /* width: 70px; */
-  /* height: 100%; */
+  margin: 10px;
 }
 
 .btn-orange {
@@ -32,4 +26,19 @@ table {
 
 .btn-dark-grey {
   background-color: #626262;
+}
+.btn-light-grey {
+  background-color: #7c7c7c;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

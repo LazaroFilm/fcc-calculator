@@ -3,7 +3,7 @@ import React from "react";
 import "./Keypad_table.css";
 
 const createButton = (key) => {
-  return <span className="btn-custom">{key}</span>;
+  return <button className="btn-custom">{key}</button>;
 };
 
 function Keypad_table() {
@@ -11,36 +11,36 @@ function Keypad_table() {
     <>
       <table>
         <tr>
-          <td className="btn-dark-grey">{createButton(`MC`)}</td>
+          <td className="btn-dark-grey">{createButton(`AC`)}</td>
           <td className="btn-dark-grey">{createButton(`%`)}</td>
           <td className="btn-dark-grey">{createButton(`÷`)}</td>
           <td className="btn-dark-grey">{createButton(`×`)}</td>
         </tr>
         <tr>
-          <td>{createButton(`7`)}</td>
-          <td>{createButton(`8`)}</td>
-          <td>{createButton(`9`)}</td>
+          <td className="btn-light-grey">{createButton(`7`)}</td>
+          <td className="btn-light-grey">{createButton(`8`)}</td>
+          <td className="btn-light-grey">{createButton(`9`)}</td>
           <td className="btn-orange">{createButton(`-`)}</td>
         </tr>
         <tr>
-          <td>{createButton(`4`)}</td>
-          <td>{createButton(`5`)}</td>
-          <td>{createButton(`6`)}</td>
+          <td className="btn-light-grey">{createButton(`4`)}</td>
+          <td className="btn-light-grey">{createButton(`5`)}</td>
+          <td className="btn-light-grey">{createButton(`6`)}</td>
           <td className="btn-orange">{createButton(`+`)}</td>
         </tr>
         <tr>
-          <td>{createButton(`1`)}</td>
-          <td>{createButton(`2`)}</td>
-          <td>{createButton(`3`)}</td>
+          <td className="btn-light-grey">{createButton(`1`)}</td>
+          <td className="btn-light-grey">{createButton(`2`)}</td>
+          <td className="btn-light-grey">{createButton(`3`)}</td>
           <td rowspan="2" className="btn-orange">
             {createButton(`=`)}
           </td>
         </tr>
         <tr>
-          <td colspan="2" className="btn-wide">
+          <td colspan="2" className="btn-light-grey">
             {createButton(`0`)}
           </td>
-          <td>{createButton(`.`)}</td>
+          <td className="btn-light-grey">{createButton(`.`)}</td>
         </tr>
       </table>
     </>
