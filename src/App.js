@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { evaluate, format } from "mathjs";
 import logo from "./logo.svg";
 import "./App.css";
+import Keypad from "./Keypad";
 
 function App() {
   const [display, setDisplay] = useState("initial display");
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <Keypad />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>This will become a calculator... at some point.</p>
