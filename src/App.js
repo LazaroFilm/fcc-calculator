@@ -3,6 +3,7 @@ import { evaluate, format } from "mathjs";
 // import logo from "./logo.svg";
 // import "./App.css";
 import Keypad from "./Keypad";
+import Keypad_table from "./Keypad_table";
 
 function App() {
   const [display, setDisplay] = useState("initial display");
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <Keypad />
+      <Keypad_table />
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>This will become a calculator... at some point.</p>

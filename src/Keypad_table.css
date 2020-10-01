@@ -1,0 +1,35 @@
+table,
+th,
+td {
+  border: 1px solid #525252;
+  margin: 0;
+  padding: 0;
+  height: 60px;
+  width: 80px;
+  overflow: hidden;
+  /* display: inline-block; */
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #7c7c7c;
+  color: #ebebeb;
+  font: Helvetica;
+  font-size: 150%;
+}
+
+table {
+  table-layout: fixed;
+}
+
+.btn-custom {
+  /* width: 70px; */
+  /* height: 100%; */
+}
+
+.btn-orange {
+  background-color: #ff9f0b;
+}
+
+.btn-dark-grey {
+  background-color: #626262;
+}
