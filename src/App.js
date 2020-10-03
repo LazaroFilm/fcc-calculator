@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { evaluate, format } from "mathjs";
 // import logo from "./logo.svg";
 // import "./App.css";
-import Keypad from "./Keypad";
 import Keypad_table from "./Keypad_table";
 
 function App() {
