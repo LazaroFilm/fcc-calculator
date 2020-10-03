@@ -2,11 +2,19 @@ import React from "react";
 // import { Button } from "react-bootstrap";
 import "./Keypad_table.css";
 
-const createButton = (key) => {
-  return <button className="keypad">{key}</button>;
+const createButton = (key, handle) => {
+  return (
+    <button className="keypad" onClick={handle}>
+      {key}
+    </button>
+  );
 };
 
 const Keypad_table = () => {
+  const handleTest = () => {
+    console.log("TEST SUCCESSFUL from =");
+  };
+
   return (
     <>
       <table>
@@ -68,14 +76,14 @@ const Keypad_table = () => {
             <td
               id="equals"
               style={{ height: "120px" }}
-              rowspan="2"
+              rowSpan="2"
               className="btn-orange"
             >
-              {createButton(`=`)}
+              {createButton(`=`, handleTest)}
             </td>
           </tr>
           <tr>
-            <td id="zero" colspan="2" className="btn-light-grey">
+            <td id="zero" colSpan="2" className="btn-light-grey">
               {createButton(`0`)}
             </td>
             <td id="decimal" className="btn-light-grey">

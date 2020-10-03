@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { evaluate, format } from "mathjs";
 import "./Display.css";
 
-const Display = (handleSubmit, calc, setCalc, result) => {
+const Display = () => {
   // const [display, setDisplay] = useState("initial display");
-  // const [calc, setCalc] = useState("0");
-  // const [result, setResult] = useState(0);
+  const [calc, setCalc] = useState("0");
+  const [result, setResult] = useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`calc= ${e}`);
+    console.log(e);
+    console.log(calc);
+    setResult(calc);
+  };
 
   return (
     <div>
@@ -18,7 +26,7 @@ const Display = (handleSubmit, calc, setCalc, result) => {
         />
         {/* <input type="submit" value="=" /> */}
       </form>
-      <p>{result}</p>
+      <p>TEST: {result}</p>
       {/* <p id="display">{format(evaluate(result), { precision: 14 })}</p> */}
     </div>
   );
