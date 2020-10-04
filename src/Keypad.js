@@ -1,18 +1,26 @@
 import React from "react";
 // import { Button } from "react-bootstrap";
-import "./Keypad_table.css";
+import "./Keypad.css";
 
-const createButton = (key, handle) => {
-  return (
-    <button className="keypad" onClick={handle}>
-      {key}
-    </button>
-  );
-};
+const Keypad = ({ handleKey }) => {
+  const createButton = (key) => {
+    return (
+      <button className="keypad" onClick={handleKey}>
+        {key}
+      </button>
+    );
+  };
 
-const Keypad_table = () => {
-  const handleTest = () => {
-    console.log("TEST SUCCESSFUL from =");
+  const CreateButton = ({ name, handleKey }) => {
+    return (
+      <button className="keypad" onClick={handleKey}>
+        {name}
+      </button>
+    );
+  };
+
+  const handleTest = (key) => {
+    console.log(`Key SUCCESSFUL from ${key}`);
   };
 
   return (
@@ -25,7 +33,7 @@ const Keypad_table = () => {
               className="btn-dark-grey"
               style={{ fontSize: "90%" }}
             >
-              {createButton(`AC`)}
+              <CreateButton name="AC" handleKey={() => handleKey("AC")} />
             </td>
             <td className="btn-dark-grey">{createButton(`%`)}</td>
             <td id="divide" className="btn-dark-grey">
@@ -79,7 +87,7 @@ const Keypad_table = () => {
               rowSpan="2"
               className="btn-orange"
             >
-              {createButton(`=`, handleTest)}
+              {createButton(`=`, handleKey)}
             </td>
           </tr>
           <tr>
@@ -96,4 +104,4 @@ const Keypad_table = () => {
   );
 };
 
-export default Keypad_table;
+export default Keypad;

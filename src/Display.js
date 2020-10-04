@@ -26,8 +26,9 @@ const Display = () => {
         />
         {/* <input type="submit" value="=" /> */}
       </form>
-      <p>TEST: {result}</p>
-      {/* <p id="display">{format(evaluate(result), { precision: 14 })}</p> */}
+      <p>Calc: {calc}</p>
+      <p>Result: {result}</p>
+      <p id="display">{format(evaluate(result), { precision: 14 })}</p>
     </div>
   );
 };
