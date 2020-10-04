@@ -20,14 +20,17 @@ const keys = {
   subtract: `-`,
   multiply: `*`,
   divide: `/`,
+  decimal: `.`,
 };
+
+const numbers = /\d|./;
 
 const App = () => {
   const [calc, setCalc] = useState("0");
   const [result, setResult] = useState(0);
 
   const handleKey = (id, name) => {
-    console.log(`Clicking key ${id}`);
+    console.log(`Clicking key id=${id} name=${name}`);
     if (id === "clear") {
       console.log(`Clear!`);
       setCalc("0");
@@ -35,12 +38,24 @@ const App = () => {
     } else if (id === "equals") {
       console.log(`Equals =`);
       handleEquals();
+    } else if (id === "percent") {
+      console.log(`not yet available`);
     } else {
-      setResult(name);
       if (calc === "0") {
         setCalc(keys[id]);
+        setResult(name);
       } else {
-        setCalc(calc.toString() + keys[id].toString());
+        if (numbers.test(name)) {
+          if (numbers.test(result)) {
+            setResult(result.toString() + name.toString());
+          } else {
+            setResult(name.toString());
+          }
+          setCalc(calc.toString() + keys[id].toString());
+        } else {
+          setResult(name);
+          setCalc(calc.toString() + keys[id].toString());
+        }
       }
     }
   };
