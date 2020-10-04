@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { evaluate, format } from "mathjs";
+import React from "react";
+// import { evaluate, format } from "mathjs";
 import "./Display.css";
 
-const Display = ({ calc, setCalc }) => {
+const Display = ({ calc, setCalc, result, setResult }) => {
   // const [calc, setCalc] = useState("0");
-  const [result, setResult] = useState(0);
+  // const [result, setResult] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,17 +13,17 @@ const Display = ({ calc, setCalc }) => {
 
   return (
     <div>
-      <form id="calc-form" onSubmit={handleSubmit}>
+      {/* <form id="calcForm" onSubmit={handleSubmit}>
         <input
           className="input-display"
           type="text"
           value={calc}
           onChange={(e) => setCalc(e.target.value)}
         />
-      </form>
-      <p>Calc: {calc}</p>
-      <p>Result: {result}</p>
-      <p id="display">{format(evaluate(result), { precision: 14 })}</p>
+      </form> */}
+      <p>{calc}</p>
+      <p id="display">{result}</p>
+      {/* <p>{format(evaluate(result), { precision: 14 })}</p> */}
     </div>
   );
 };

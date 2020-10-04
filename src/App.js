@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Keypad from "./Keypad";
 import Display from "./Display";
+import { evaluate, format } from "mathjs";
 
 const keys = {
   one: 1,
@@ -23,27 +24,41 @@ const keys = {
 
 const App = () => {
   const [calc, setCalc] = useState("0");
-  const handleKey = (name) => {
-    console.log(`TEST SUCCESSFUL from ${name}`);
-    if (name === "clear") {
-      console.log(`reset to 0`);
+  const [result, setResult] = useState(0);
+
+  const handleKey = (id, name) => {
+    console.log(`Clicking key ${id}`);
+    if (id === "clear") {
+      console.log(`Clear!`);
       setCalc("0");
-    } else if (name === "equals") {
-      console.log(`getting result`);
+      setResult("0");
+    } else if (id === "equals") {
+      console.log(`Equals =`);
+      handleEquals();
     } else {
+      setResult(name);
       if (calc === "0") {
-        setCalc(keys[name]);
+        setCalc(keys[id]);
       } else {
-        setCalc(calc + keys[name]);
+        setCalc(calc.toString() + keys[id].toString());
       }
     }
   };
 
+  const handleEquals = () => {
+    setResult(format(evaluate(calc), { precision: 14 }));
+  };
+
   return (
     <div className="App">
-      <p>APP DISPLAY: {calc}</p>
       <div className="Display">
-        <Display calc={calc} setCalc={setCalc} />
+        <Display
+          calc={calc}
+          setCalc={setCalc}
+          result={result}
+          setResult={setResult}
+          // handleEquals={handleEquals}
+        />
       </div>
       <div className="Keypad">
         <Keypad handleKey={handleKey} />

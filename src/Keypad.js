@@ -3,9 +3,9 @@ import React from "react";
 import "./Keypad.css";
 
 const Keypad = ({ handleKey }) => {
-  const CreateButton = ({ name, id }) => {
+  const CreateButton = ({ id, name }) => {
     return (
-      <button id={id} className="keypad" onClick={() => handleKey(id)}>
+      <button id={id} className="keypad" onClick={() => handleKey(id, name)}>
         {name}
       </button>
     );
