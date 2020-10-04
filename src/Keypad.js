@@ -3,24 +3,12 @@ import React from "react";
 import "./Keypad.css";
 
 const Keypad = ({ handleKey }) => {
-  const createButton = (key) => {
+  const CreateButton = ({ name, id }) => {
     return (
-      <button className="keypad" onClick={handleKey}>
-        {key}
-      </button>
-    );
-  };
-
-  const CreateButton = ({ name, handleKey }) => {
-    return (
-      <button className="keypad" onClick={handleKey}>
+      <button id={id} className="keypad" onClick={() => handleKey(id)}>
         {name}
       </button>
     );
-  };
-
-  const handleTest = (key) => {
-    console.log(`Key SUCCESSFUL from ${key}`);
   };
 
   return (
@@ -28,74 +16,67 @@ const Keypad = ({ handleKey }) => {
       <table>
         <tbody>
           <tr>
-            <td
-              id="clear"
-              className="btn-dark-grey"
-              style={{ fontSize: "90%" }}
-            >
-              <CreateButton name="AC" handleKey={() => handleKey("AC")} />
+            <td className="btn-dark-grey" style={{ fontSize: "90%" }}>
+              <CreateButton id="clear" name="AC" />
             </td>
-            <td className="btn-dark-grey">{createButton(`%`)}</td>
-            <td id="divide" className="btn-dark-grey">
-              {createButton(`÷`)}
+            <td className="btn-dark-grey">
+              <CreateButton id="percent" name="%" />
             </td>
-            <td id="multiply" className="btn-dark-grey">
-              {createButton(`×`)}
+            <td className="btn-dark-grey">
+              <CreateButton id="divide" name="÷" />
+            </td>
+            <td className="btn-dark-grey">
+              <CreateButton id="multiply" name="×" />
             </td>
           </tr>
           <tr>
-            <td id="seven" className="btn-light-grey">
-              {createButton(`7`)}
+            <td className="btn-light-grey">
+              <CreateButton id="seven" name="7" />
             </td>
-            <td id="eight" className="btn-light-grey">
-              {createButton(`8`)}
+            <td className="btn-light-grey">
+              <CreateButton id="eight" name="8" />
             </td>
-            <td id="nine" className="btn-light-grey">
-              {createButton(`9`)}
+            <td className="btn-light-grey">
+              <CreateButton id="nine" name="9" />
             </td>
-            <td id="subtract" className="btn-orange">
-              {createButton(`-`)}
-            </td>
-          </tr>
-          <tr>
-            <td id="four" className="btn-light-grey">
-              {createButton(`4`)}
-            </td>
-            <td id="five" className="btn-light-grey">
-              {createButton(`5`)}
-            </td>
-            <td id="six" className="btn-light-grey">
-              {createButton(`6`)}
-            </td>
-            <td id="add" className="btn-orange">
-              {createButton(`+`)}
+            <td className="btn-orange">
+              <CreateButton id="subtract" name="-" />
             </td>
           </tr>
           <tr>
-            <td id="one" className="btn-light-grey">
-              {createButton(`1`)}
+            <td className="btn-light-grey">
+              <CreateButton id="four" name="4" />
             </td>
-            <td id="two" className="btn-light-grey">
-              {createButton(`2`)}
+            <td className="btn-light-grey">
+              <CreateButton id="five" name="5" />
             </td>
-            <td id="three" className="btn-light-grey">
-              {createButton(`3`)}
+            <td className="btn-light-grey">
+              <CreateButton id="six" name="6" />
             </td>
-            <td
-              id="equals"
-              style={{ height: "120px" }}
-              rowSpan="2"
-              className="btn-orange"
-            >
-              {createButton(`=`, handleKey)}
+            <td className="btn-orange">
+              <CreateButton id="add" name="+" />
             </td>
           </tr>
           <tr>
-            <td id="zero" colSpan="2" className="btn-light-grey">
-              {createButton(`0`)}
+            <td className="btn-light-grey">
+              <CreateButton id="one" name="1" />
             </td>
-            <td id="decimal" className="btn-light-grey">
-              {createButton(`.`)}
+            <td className="btn-light-grey">
+              <CreateButton id="two" name="2" />
+            </td>
+            <td className="btn-light-grey">
+              <CreateButton id="three" name="3" />
+            </td>
+            <td style={{ height: "120px" }} rowSpan="2" className="btn-orange">
+              <CreateButton id="equals" name="=" />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan="2" className="btn-light-grey">
+              <CreateButton id="zero" name="0" />
+            </td>
+            <td className="btn-light-grey">
+              <CreateButton id="decimal" name="." />
             </td>
           </tr>
         </tbody>
