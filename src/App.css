@@ -1,6 +1,8 @@
 .App {
+  color: gray;
   margin: auto;
-  width: 50%;
+  margin-top: 20px;
+  width: 240px;
   background-color: #545656;
 }
 

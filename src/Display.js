@@ -6,13 +6,13 @@ const Display = ({ calc, setCalc, result, setResult }) => {
   // const [calc, setCalc] = useState("0");
   // const [result, setResult] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setResult(calc);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setResult(calc);
+  // };
 
   return (
-    <div>
+    <div id="screen">
       {/* <form id="calcForm" onSubmit={handleSubmit}>
         <input
           className="input-display"
