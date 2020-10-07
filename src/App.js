@@ -123,7 +123,9 @@ const App = () => {
       {/* <p>{`calc: ${calc} Result: ${result}`}</p> */}
       {/* <p>{`Equal pressed? ${equalPressed}`}</p> */}
       {/* <p>{prevType}</p> */}
-      <p style={{ fontSize: "60%", backgroundColor: "white" }}>by LazaroFilm</p>
+      <p style={{ fontSize: "60%", backgroundColor: "white" }}>
+        by LazaroFilm - last update: Oct 7 4:12
+      </p>
     </div>
   );
 };
