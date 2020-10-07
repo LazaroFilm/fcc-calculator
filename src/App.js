@@ -36,19 +36,19 @@ const App = () => {
   const handleKey = (id) => {
     const keySym = keys[id][0];
     const keyName = keys[id][1];
-    console.log(`Clicking key id=${id} name=${keyName}`);
+    // console.log(`Clicking key id=${id} name=${keyName}`);
     if (equalPressed) {
       setCalc("0");
       setResult("0");
       setEqualPressed(false);
-      console.log(`RESET AFTER EQUAL`);
+      // console.log(`RESET AFTER EQUAL`);
     } else {
-      console.log(`move along`);
+      // console.log(`move along`);
       setEqualPressed(false);
     }
-    console.log(`past equal thingy`);
+    // console.log(`past equal thingy`);
     if (id === "clear") {
-      console.log(`Clear!`);
+      // console.log(`Clear!`);
       setCalc("0");
       setResult("0");
       setEqualPressed(false);
@@ -57,7 +57,7 @@ const App = () => {
       setEqualPressed(true);
       handleEquals();
     } else if (id === "percent") {
-      console.log(`not yet available`);
+      // console.log(`not yet available`);
       setEqualPressed(false);
     } else {
       if (calc === "0") {
@@ -87,18 +87,17 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="Display">
-        <Display
-          calc={calc}
-          setCalc={setCalc}
-          result={result}
-          setResult={setResult}
-          // handleEquals={handleEquals}
-        />
-      </div>
-      <div className="Keypad">
-        <Keypad handleKey={handleKey} keys={keys} />
-      </div>
+      <div>{calc}</div>
+      <div id="display">{result}</div>
+      {/* <Display
+        calc={calc}
+        setCalc={setCalc}
+        result={result}
+        setResult={setResult}
+        className="Display"
+        // handleEquals={handleEquals}
+      /> */}
+      <Keypad handleKey={handleKey} keys={keys} className="Keypad" />
       {/* <p>{`calc: ${calc} Result: ${result}`}</p> */}
       {/* <p>{`Equal pressed? ${equalPressed}`}</p> */}
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>by LazaroFilm</p>
