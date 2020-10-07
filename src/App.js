@@ -2,92 +2,114 @@ import React, { useState } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 import Keypad from "./Keypad";
-import Display from "./Display";
+// import Display from "./Display";
 import { evaluate, format } from "mathjs";
 
 const keys = {
-  one: [`1`, "1"],
-  two: [`2`, "2"],
-  three: [`3`, "3"],
-  four: [`4`, "4"],
-  five: [`5`, "5"],
-  six: [`6`, "6"],
-  seven: [`7`, "7"],
-  eight: [`8`, "8"],
-  nine: [`9`, "9"],
-  zero: [`0`, "0"],
-  add: [`+`, "+"],
-  subtract: [`-`, "-"],
-  multiply: [`*`, "×"],
-  divide: [`/`, "÷"],
-  decimal: [`.`, "."],
-  equals: [`=`, "="],
-  clear: [`ac`, "AC"],
-  percent: [`%`, "%"],
-};
+  one: [`1`, "1", "num"],
+  two: [`2`, "2", "num"],
+  three: [`3`, "3", "num"],
+  four: [`4`, "4", "num"],
+  five: [`5`, "5", "num"],
+  six: [`6`, "6", "num"],
+  seven: [`7`, "7", "num"],
+  eight: [`8`, "8", "num"],
+  nine: [`9`, "9", "num"],
+  zero: [`0`, "0", "num"],
 
-const numbers = /[\d.]+/;
+  decimal: [`.`, ".", "dot"],
+
+  add: [`+`, "+", "oper"],
+  subtract: [`-`, "–", "oper"],
+  multiply: [`*`, "×", "oper"],
+  divide: [`/`, "÷", "oper"],
+
+  equals: [`=`, "=", "equal"],
+
+  clear: [`ac`, "AC", "clear"],
+  backspace: [`bksp`, "⌫", "bksp"],
+};
 
 const App = () => {
   const [calc, setCalc] = useState("0");
-  const [result, setResult] = useState(0);
-  const [equalPressed, setEqualPressed] = useState(false);
+  const [result, setResult] = useState("0");
+  const [prevType, setPrevType] = useState("clear");
 
   const handleKey = (id) => {
-    const keySym = keys[id][0];
-    const keyName = keys[id][1];
-    // console.log(`Clicking key id=${id} name=${keyName}`);
-    if (equalPressed) {
-      setCalc("0");
-      setResult("0");
-      setEqualPressed(false);
-      // console.log(`RESET AFTER EQUAL`);
-    } else {
-      // console.log(`move along`);
-      setEqualPressed(false);
-    }
-    // console.log(`past equal thingy`);
-    if (id === "clear") {
-      // console.log(`Clear!`);
-      setCalc("0");
-      setResult("0");
-      setEqualPressed(false);
-    } else if (id === "equals") {
-      // console.log(`Equals =`);
-      setEqualPressed(true);
-      handleEquals();
-    } else if (id === "percent") {
-      // console.log(`not yet available`);
-      setEqualPressed(false);
-    } else {
-      if (calc === "0") {
-        setCalc(keySym);
-        setResult(keyName);
-      } else {
-        if (numbers.test(keySym)) {
-          if (numbers.test(result)) {
-            // console.log("adding to number");
-            setResult(result.toString() + keyName.toString());
-          } else {
-            // console.log("starting number");
-            setResult(keyName.toString());
-          }
-          setCalc(calc.toString() + keySym.toString());
-        } else {
-          setResult(keyName);
-          setCalc(calc.toString() + keySym.toString());
-        }
-      }
+    const keyType = keys[id][2];
+    switch (keyType) {
+      case "num":
+        handleNumber(id);
+        break;
+      case "oper":
+        handleOper(id);
+        break;
+      case "dot":
+        handleDot();
+        break;
+      case "equal":
+        handleEqual();
+        break;
+      case "clear":
+        handleClear();
+      default:
+        break;
     }
   };
 
-  const handleEquals = () => {
+  const handleNumber = (id) => {
+    const keySym = keys[id][0];
+    if (prevType === "num" || prevType === "dot") {
+      if (result[0] === "0" && result[1] !== ".") {
+        setCalc(keySym);
+        setResult(keySym);
+      } else {
+        setCalc(calc + keySym);
+        setResult(result + keySym);
+      }
+    } else if (prevType === "clear" || prevType === "equal") {
+      setCalc(keySym);
+      setResult(keySym);
+    } else if (prevType === "oper") {
+      setCalc(calc + keySym);
+      setResult(keySym);
+    }
+    setPrevType("num");
+  };
+
+  const handleDot = () => {
+    setCalc(calc + ".");
+    setResult(result + ".");
+    setPrevType("dot");
+  };
+
+  const handleOper = (id) => {
+    const keySym = keys[id][0];
+    const keyName = keys[id][1];
+    if (prevType === "equal") {
+      setCalc(result + keySym);
+      setResult(result + keyName);
+    } else {
+      setCalc(calc + keySym);
+      setResult(result + keyName);
+    }
+    setPrevType("oper");
+  };
+
+  const handleClear = () => {
+    setCalc("0");
+    setResult("0");
+    setPrevType("clear");
+  };
+  const handleEqual = () => {
+    setCalc("'");
     setResult(format(evaluate(calc), { precision: 14 }));
+    setPrevType("equal");
   };
 
   return (
     <div className="App">
-      <div>{calc}</div>
+      <div id="formula">{calc}</div>
       <div id="display">{result}</div>
       {/* <Display
         calc={calc}
@@ -100,6 +122,7 @@ const App = () => {
       <Keypad handleKey={handleKey} keys={keys} className="Keypad" />
       {/* <p>{`calc: ${calc} Result: ${result}`}</p> */}
       {/* <p>{`Equal pressed? ${equalPressed}`}</p> */}
+      {/* <p>{prevType}</p> */}
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>by LazaroFilm</p>
     </div>
   );
