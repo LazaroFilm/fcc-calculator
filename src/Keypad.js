@@ -2,10 +2,10 @@ import React, { memo } from "react";
 // import { Button } from "react-bootstrap";
 import "./Keypad.css";
 
-const Keypad = memo(({ handleKey, keys }) => {
+const Keypad = memo(({ keyPressed, keys }) => {
   const CreateButton = ({ id }) => {
     return (
-      <button id={id} className="keypad" onClick={() => handleKey(id)}>
+      <button id={id} className="keypad" onClick={() => keyPressed(id)}>
         {keys[id][1]}
       </button>
     );

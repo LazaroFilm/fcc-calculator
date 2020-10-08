@@ -36,6 +36,7 @@ const initialState = {
 
 const reducer = function (state, id) {
   const keyType = keys[id][2];
+  console.log(`key: ${id}`);
   switch (keyType) {
     case "num":
       return handleNumber(state, id);
@@ -111,7 +112,7 @@ const handleOper = (state, id) => {
   let { calc, result, prevType } = state;
   const keySym = keys[id][0];
   const keyName = keys[id][1];
-  console.log(calc[calc.length - 1]);
+  // console.log(calc[calc.length - 1]);
   if (prevType === "equal") {
     return {
       calc: result + keySym,
@@ -174,7 +175,7 @@ const App = () => {
     <div className="App">
       <div id="formula">{calc}</div>
       <div id="display">{result}</div>
-      <Keypad handleKey={dispatch} keys={keys} className="Keypad" />
+      <Keypad keyPressed={dispatch} keys={keys} className="Keypad" />
 
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>
         by LazaroFilm - last update: Oct 8 4:06
