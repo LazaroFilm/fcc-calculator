@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 // import { Button } from "react-bootstrap";
 import "./Keypad.css";
 
-const Keypad = ({ handleKey, keys }) => {
+const Keypad = memo(({ handleKey, keys }) => {
   const CreateButton = ({ id }) => {
     return (
       <button id={id} className="keypad" onClick={() => handleKey(id)}>
@@ -83,6 +83,6 @@ const Keypad = ({ handleKey, keys }) => {
       </table>
     </>
   );
-};
+});
 
 export default Keypad;

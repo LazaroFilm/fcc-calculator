@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 import Keypad from "./Keypad";
@@ -30,82 +30,113 @@ const keys = {
   backspace: [`bksp`, "⌫", "bksp"],
 };
 
-const App = () => {
-  const [calc, setCalc] = useState("0");
-  const [result, setResult] = useState("0");
-  const [prevType, setPrevType] = useState("clear");
+const initialState = {
+  calc: "0",
+  result: "0",
+  prevType: "clear",
+};
 
-  const handleKey = (id) => {
-    const keyType = keys[id][2];
-    switch (keyType) {
-      case "num":
-        handleNumber(id);
-        break;
-      case "oper":
-        handleOper(id);
-        break;
-      case "dot":
-        handleDot();
-        break;
-      case "equal":
-        handleEqual();
-        break;
-      case "clear":
-        handleClear();
-      default:
-        break;
-    }
-  };
+const reducer = function (state, id) {
+  let { calc, result, prevType } = state;
+  const keyType = keys[id][2];
+  switch (keyType) {
+    case "num":
+      return handleNumber(state, id);
+    case "oper":
+      return handleOper(state, id);
+    case "dot":
+      return handleDot(state);
+    case "equal":
+      return handleEqual(state);
+    case "clear":
+      return handleClear(state);
+    default:
+      break;
+  }
+};
 
-  const handleNumber = (id) => {
-    const keySym = keys[id][0];
-    if (prevType === "num" || prevType === "dot") {
-      if (result[0] === "0" && result[1] !== ".") {
-        setCalc(keySym);
-        setResult(keySym);
-      } else {
-        setCalc(calc + keySym);
-        setResult(result + keySym);
-      }
-    } else if (prevType === "clear" || prevType === "equal") {
-      setCalc(keySym);
-      setResult(keySym);
-    } else if (prevType === "oper") {
-      setCalc(calc + keySym);
-      setResult(keySym);
-    }
-    setPrevType("num");
-  };
-
-  const handleDot = () => {
-    setCalc(calc + ".");
-    setResult(result + ".");
-    setPrevType("dot");
-  };
-
-  const handleOper = (id) => {
-    const keySym = keys[id][0];
-    const keyName = keys[id][1];
-    if (prevType === "equal") {
-      setCalc(result + keySym);
-      setResult(result + keyName);
+const handleNumber = (state, id) => {
+  let { calc, result, prevType } = state;
+  const keySym = keys[id][0];
+  if (prevType === "num" || prevType === "dot") {
+    if (result[0] === "0" && result[1] !== ".") {
+      return {
+        calc: keySym,
+        result: keySym,
+        prevType: "num",
+      };
     } else {
-      setCalc(calc + keySym);
-      setResult(result + keyName);
+      return {
+        calc: calc + keySym,
+        result: result + keySym,
+        prevType: "num",
+      };
     }
-    setPrevType("oper");
-  };
+  } else if (prevType === "clear" || prevType === "equal") {
+    return {
+      calc: keySym,
+      result: keySym,
+      prevType: "num",
+    };
+  } else if (prevType === "oper") {
+    return {
+      calc: calc + keySym,
+      result: keySym,
+      prevType: "num",
+    };
+  }
+};
 
-  const handleClear = () => {
-    setCalc("0");
-    setResult("0");
-    setPrevType("clear");
+const handleDot = (state) => {
+  let { calc, result } = state;
+  return {
+    calc: calc + ".",
+    result: result + ".",
+    prevType: "num",
   };
-  const handleEqual = () => {
-    setCalc("'");
-    setResult(format(evaluate(calc), { precision: 14 }));
-    setPrevType("equal");
+};
+
+const handleOper = (state, id) => {
+  let { calc, result, prevType } = state;
+
+  const keySym = keys[id][0];
+  const keyName = keys[id][1];
+  if (prevType === "equal") {
+    return {
+      calc: result + keySym,
+      result: result + keySym,
+      prevType: "oper",
+    };
+  } else {
+    return {
+      calc: calc + keySym,
+      result: result + keySym,
+      prevType: "oper",
+    };
+  }
+};
+
+const handleClear = () => {
+  return {
+    calc: "0",
+    result: "0",
+    prevType: "clear",
   };
+};
+const handleEqual = (state) => {
+  let { calc } = state;
+  return {
+    calc: "'",
+    result: format(evaluate(calc), { precision: 14 }),
+    prevType: "equal",
+  };
+};
+
+const App = () => {
+  // const [calc, setCalc] = useState("0");
+  // const [result, setResult] = useState("0");
+  // const [prevType, setPrevType] = useState("clear");
+  const [{ calc, result }, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
@@ -119,9 +150,8 @@ const App = () => {
         className="Display"
         // handleEquals={handleEquals}
       /> */}
-      <Keypad handleKey={handleKey} keys={keys} className="Keypad" />
-      {/* <p>{`calc: ${calc} Result: ${result}`}</p> */}
-      {/* <p>{`Equal pressed? ${equalPressed}`}</p> */}
+      <Keypad handleKey={dispatch} keys={keys} className="Keypad" />
+
       {/* <p>{prevType}</p> */}
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>
         by LazaroFilm - last update: Oct 7 4:12
