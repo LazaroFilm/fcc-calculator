@@ -19,8 +19,8 @@ const Keypad = ({ handleKey, keys }) => {
             <td className="btn-dark-grey" style={{ fontSize: "90%" }}>
               <CreateButton id="clear" />
             </td>
-            <td className="btn-dark-grey">
-              <CreateButton id="percent" />
+            <td className="btn-dark-grey" style={{ fontSize: "90%" }}>
+              <CreateButton id="backspace" />
             </td>
             <td className="btn-dark-grey">
               <CreateButton id="divide" />

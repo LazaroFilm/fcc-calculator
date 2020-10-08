@@ -12,7 +12,7 @@ const Display = ({ calc, setCalc, result, setResult }) => {
   // };
 
   return (
-    <div id="screen">
+    <span id="screen">
       {/* <form id="calcForm" onSubmit={handleSubmit}>
         <input
           className="input-display"
@@ -21,10 +21,10 @@ const Display = ({ calc, setCalc, result, setResult }) => {
           onChange={(e) => setCalc(e.target.value)}
         />
       </form> */}
-      <p>{calc}</p>
-      <p id="display">{result}</p>
+      <div>{calc}</div>
+      <div id="display">{result}</div>
       {/* <p>{format(evaluate(result), { precision: 14 })}</p> */}
-    </div>
+    </span>
   );
 };
 
