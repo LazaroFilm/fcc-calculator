@@ -1,8 +1,6 @@
 import React, { useReducer } from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 import Keypad from "./Keypad";
-// import Display from "./Display";
 import { evaluate, format } from "mathjs";
 
 const keys = {
@@ -37,7 +35,6 @@ const initialState = {
 };
 
 const reducer = function (state, id) {
-  let { calc, result, prevType } = state;
   const keyType = keys[id][2];
   switch (keyType) {
     case "num":
@@ -89,28 +86,68 @@ const handleNumber = (state, id) => {
 
 const handleDot = (state) => {
   let { calc, result } = state;
-  return {
-    calc: calc + ".",
-    result: result + ".",
-    prevType: "num",
-  };
+  if (result[result.length - 1] === ".") {
+    return {
+      calc: calc,
+      result: result,
+      prevType: "dot",
+    };
+  } else if (result.includes(".")) {
+    return {
+      calc: calc,
+      result: result,
+      prevType: "dot",
+    };
+  } else {
+    return {
+      calc: calc + ".",
+      result: result + ".",
+      prevType: "dot",
+    };
+  }
 };
 
 const handleOper = (state, id) => {
   let { calc, result, prevType } = state;
-
   const keySym = keys[id][0];
   const keyName = keys[id][1];
+  console.log(calc[calc.length - 1]);
   if (prevType === "equal") {
     return {
       calc: result + keySym,
-      result: result + keySym,
+      result: result + keyName,
       prevType: "oper",
     };
+  } else if (prevType === "dot") {
+    return {
+      calc: result.slice(0, -1) + keySym,
+      result: result.slice(0, -1) + keyName,
+      prevType: "oper",
+    };
+    // } else if (prevType === "oper") {
+    //   if (id === "subtract") {
+    //     return {
+    //       calc: calc + keySym,
+    //       result: result + keyName,
+    //       prevType: "oper",
+    //     };
+    //   } else if (
+    //     calc[calc.length - 2] === "+" ||
+    //     calc[calc.length - 2] === "*" ||
+    //     calc[calc.length - 2] === "/" ||
+    //     calc[calc.length - 2] === "-"
+    //   ) {
+    //     console.log("BOOM");
+    //     return {
+    //       calc: calc.slice(0, -2) + keySym,
+    //       result: result.slice(0, -2) + keyName,
+    //       prevType: "oper",
+    //     };
+    //   }
   } else {
     return {
       calc: calc + keySym,
-      result: result + keySym,
+      result: result + keyName,
       prevType: "oper",
     };
   }
@@ -118,43 +155,29 @@ const handleOper = (state, id) => {
 
 const handleClear = () => {
   return {
-    calc: "0",
-    result: "0",
-    prevType: "clear",
+    ...initialState,
   };
 };
 const handleEqual = (state) => {
   let { calc } = state;
   return {
-    calc: "'",
+    calc: "=",
     result: format(evaluate(calc), { precision: 14 }),
     prevType: "equal",
   };
 };
 
 const App = () => {
-  // const [calc, setCalc] = useState("0");
-  // const [result, setResult] = useState("0");
-  // const [prevType, setPrevType] = useState("clear");
   const [{ calc, result }, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
       <div id="formula">{calc}</div>
       <div id="display">{result}</div>
-      {/* <Display
-        calc={calc}
-        setCalc={setCalc}
-        result={result}
-        setResult={setResult}
-        className="Display"
-        // handleEquals={handleEquals}
-      /> */}
       <Keypad handleKey={dispatch} keys={keys} className="Keypad" />
 
-      {/* <p>{prevType}</p> */}
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>
-        by LazaroFilm - last update: Oct 7 4:12
+        by LazaroFilm - last update: Oct 8 4:06
       </p>
     </div>
   );
