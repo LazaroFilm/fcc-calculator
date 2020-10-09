@@ -16,12 +16,16 @@
   margin: auto;
   width: 100%;
   text-align: right;
-  color: white;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 200%;
+  font-size: 150%;
   padding-right: 10px;
 }
 
 #display {
   font-size: 300%;
+  color: white;
+}
+
+#formula {
+  color: gray;
 }

@@ -24,13 +24,11 @@ const keys = {
   clear: [`ac`, "AC", "clear"],
   backspace: [`bksp`, "⌫", "bksp"],
 };
-
 const initialState = {
   calc: "0",
   result: "0",
   prevType: "clear",
 };
-
 const reducer = function (state, id) {
   const keyType = keys[id][2];
   console.log(`key: ${id}`);
@@ -49,7 +47,6 @@ const reducer = function (state, id) {
       break;
   }
 };
-
 const handleNumber = (state, id) => {
   let { calc, result, prevType } = state;
   const keySym = keys[id][0];
@@ -81,7 +78,6 @@ const handleNumber = (state, id) => {
     };
   }
 };
-
 const handleDot = (state) => {
   let { calc, result } = state;
   if (result[result.length - 1] === ".") {
@@ -104,74 +100,45 @@ const handleDot = (state) => {
     };
   }
 };
-
-// const handleOper = (state, id) => {
-//   let { calc, result, prevType } = state;
-//   const keySym = keys[id][0];
-//   const keyName = keys[id][1];
-//   console.log(`operator pressed`);
-//   if (prevType === "equal") {
-//     return {
-//       calc: result + keySym,
-//       result: result + keyName,
-//       prevType: "oper",
-//     };
-//   } else if (prevType === "dot") {
-//     return {
-//       calc: result.slice(0, -1) + keySym,
-//       result: result.slice(0, -1) + keyName,
-//       prevType: "oper",
-//     };
-//   } else if (prevType === "oper") {
-//     if (id === "subtract") {
-//       console.log(`getting crazy!`);
-//       return {
-//         calc: calc.replace(/([+*/]+)$/, "") + keySym,
-//         result: result.replace(/([+*/]+)$/, "") + keyName,
-//         prevType: "oper",
-//       };
-//     }
-//   } else {
-//     return {
-//       calc: calc.replace(/([+*/]+)$/, "") + keySym,
-//       result: result.replace(/([+*/]+)$/, "") + keyName,
-//       prevType: "oper",
-//     };
-//   }
-// };
-
 const handleOper = (state, id) => {
   let { calc, result, prevType } = state;
   const keySym = keys[id][0];
   const keyName = keys[id][1];
   console.log(`operator pressed`);
-  if (prevType === "equal") {
+  if (id === "subtract") {
+    //! Need to work on subtract behavior.
     return {
-      calc: result + keySym,
+      calc: calc + keySym,
       result: result + keyName,
       prevType: "oper",
     };
-  } else if (prevType === "dot") {
-    return {
-      calc: result.slice(0, -1) + keySym,
-      result: result.slice(0, -1) + keyName,
-      prevType: "oper",
-    };
   } else {
-    return {
-      calc: result.slice(0, -1) + keySym,
-      result: result.replace(/([+*/]+)$/, "") + keyName,
-      prevType: "oper",
-    };
+    if (prevType === "equal") {
+      return {
+        calc: result + keySym,
+        result: result + keyName,
+        prevType: "oper",
+      };
+    } else if (prevType === "dot") {
+      return {
+        calc: result.slice(0, -1) + keySym,
+        result: result.slice(0, -1) + keyName,
+        prevType: "oper",
+      };
+    } else {
+      return {
+        calc: calc.replace(/([+*/]+)$/, "") + keySym,
+        result: result.replace(/([+×÷]+)$/, "") + keyName,
+        prevType: "oper",
+      };
+    }
   }
 };
-
 const handleClear = () => {
   return {
     ...initialState,
   };
 };
-
 const handleEqual = (state) => {
   let { calc } = state;
   return {
@@ -180,5 +147,4 @@ const handleEqual = (state) => {
     prevType: "equal",
   };
 };
-
 export { keys, initialState, reducer };
