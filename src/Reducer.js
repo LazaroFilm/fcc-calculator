@@ -28,6 +28,7 @@ const initialState = {
   calc: "0",
   result: "0",
   prevType: "clear",
+  twoBack: "clear",
 };
 const reducer = function (state, id) {
   const keyType = keys[id][2];
@@ -41,10 +42,10 @@ const reducer = function (state, id) {
       return handleDot(state);
     case "equal":
       return handleEqual(state);
-    case "clear":
-      return handleClear(state);
+    case "bksp":
+      return handleBksp(state);
     default:
-      break;
+      return handleClear(state);
   }
 };
 const handleNumber = (state, id) => {
@@ -55,12 +56,14 @@ const handleNumber = (state, id) => {
       return {
         calc: keySym,
         result: keySym,
+        twoBack: prevType,
         prevType: "num",
       };
     } else {
       return {
         calc: calc + keySym,
         result: result + keySym,
+        twoBack: prevType,
         prevType: "num",
       };
     }
@@ -74,28 +77,32 @@ const handleNumber = (state, id) => {
     return {
       calc: calc + keySym,
       result: keySym,
+      twoBack: prevType,
       prevType: "num",
     };
   }
 };
 const handleDot = (state) => {
-  let { calc, result } = state;
+  let { calc, result, prevType } = state;
   if (result[result.length - 1] === ".") {
     return {
       calc: calc,
       result: result,
+      twoBack: prevType,
       prevType: "dot",
     };
   } else if (result.includes(".")) {
     return {
       calc: calc,
       result: result,
+      twoBack: prevType,
       prevType: "dot",
     };
   } else {
     return {
       calc: calc + ".",
       result: result + ".",
+      twoBack: prevType,
       prevType: "dot",
     };
   }
@@ -104,34 +111,35 @@ const handleOper = (state, id) => {
   let { calc, result, prevType } = state;
   const keySym = keys[id][0];
   const keyName = keys[id][1];
-  console.log(`operator pressed`);
-  if (id === "subtract") {
-    //! Need to work on subtract behavior.
+  //! Test 0- fails change behavior after reset.
+  if (prevType === "equal") {
+    return {
+      calc: result + keySym,
+      result: result + keyName,
+      twoBack: prevType,
+      prevType: "oper",
+    };
+  } else if (prevType === "dot") {
+    return {
+      calc: calc.slice(0, -1) + keySym,
+      result: result.slice(0, -1) + keyName,
+      twoBack: prevType,
+      prevType: "oper",
+    };
+  } else if (id === "subtract") {
     return {
       calc: calc + keySym,
       result: result + keyName,
+      twoBack: prevType,
       prevType: "oper",
     };
   } else {
-    if (prevType === "equal") {
-      return {
-        calc: result + keySym,
-        result: result + keyName,
-        prevType: "oper",
-      };
-    } else if (prevType === "dot") {
-      return {
-        calc: result.slice(0, -1) + keySym,
-        result: result.slice(0, -1) + keyName,
-        prevType: "oper",
-      };
-    } else {
-      return {
-        calc: calc.replace(/([+*/]+)$/, "") + keySym,
-        result: result.replace(/([+×÷]+)$/, "") + keyName,
-        prevType: "oper",
-      };
-    }
+    return {
+      calc: calc.replace(/([+\-*/]+)$/, "") + keySym,
+      result: result.replace(/([+\–×÷]+)$/, "") + keyName,
+      twoBack: prevType,
+      prevType: "oper",
+    };
   }
 };
 const handleClear = () => {
@@ -140,11 +148,45 @@ const handleClear = () => {
   };
 };
 const handleEqual = (state) => {
-  let { calc } = state;
+  let { calc, prevType } = state;
+  if (prevType === "dot") {
+    return {
+      calc: "=",
+      result: format(evaluate(calc.slice(0, -1)), { precision: 14 }),
+      twoBack: "equal",
+      prevType: "equal",
+    };
+  }
   return {
     calc: "=",
     result: format(evaluate(calc), { precision: 14 }),
+    twoBack: "equal",
     prevType: "equal",
   };
+};
+const handleBksp = (state) => {
+  let { calc, result, twoBack } = state;
+  //! needs to work with prevType num only
+  //! check that there is a prevType existing
+  //! make sure there is at least one char in calc and result
+  if (result.slice(0, -1).length <= 1) {
+    return {
+      calc: "0",
+      result: "0",
+      prevType: twoBack,
+    };
+  } else if (calc.slice(0, -1).length <= 1) {
+    return {
+      calc: "0",
+      result: "0",
+      prevType: twoBack,
+    };
+  } else {
+    return {
+      calc: calc.slice(0, -1),
+      result: result.slice(0, -1),
+      prevType: twoBack,
+    };
+  }
 };
 export { keys, initialState, reducer };
