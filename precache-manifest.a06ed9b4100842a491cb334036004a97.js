@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "852128ccc51e989c66aa1e811dbe74e1",
+    "revision": "41175f99298e73150e82a886689ae114",
     "url": "/fcc-calculator/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fcc-calculator/static/css/2.d9ad5f5c.chunk.css"
   },
   {
-    "revision": "002def87ffd005393caf",
+    "revision": "acf669b64d5edfc31039",
     "url": "/fcc-calculator/static/css/main.2fe10592.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fcc-calculator/static/js/2.b63f8e0d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "002def87ffd005393caf",
-    "url": "/fcc-calculator/static/js/main.4eee0081.chunk.js"
+    "revision": "acf669b64d5edfc31039",
+    "url": "/fcc-calculator/static/js/main.94a2d39b.chunk.js"
   },
   {
     "revision": "7281f81b1ccd46a2aea4",
