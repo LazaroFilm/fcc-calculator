@@ -22,10 +22,8 @@ const App = () => {
       <div id="formula">{convDisp(calc)}</div>
       <div id="display">{convDisp(result)}</div>
       <Keypad keyPressed={dispatch} keys={keys} className="Keypad" />
-      <p>{prevType}</p>
-      <p style={{ fontSize: "60%", backgroundColor: "white" }}>
-        by LazaroFilm - last update: Oct 8 11:49 PM
-      </p>
+      {/* <p>{prevType}</p> */}
+      <p style={{ fontSize: "60%", backgroundColor: "white" }}>by LazaroFilm</p>
     </div>
   );
 };
