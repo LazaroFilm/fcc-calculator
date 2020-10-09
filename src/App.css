@@ -19,6 +19,8 @@
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 150%;
   padding-right: 10px;
+  overflow-wrap: break-word;
+  overflow: scroll;
 }
 
 #display {

@@ -74,12 +74,20 @@ const handleNumber = (state, id) => {
       prevType: "num",
     };
   } else if (prevType === "oper") {
-    return {
-      calc: calc + keySym,
-      result: keySym,
-      twoBack: prevType,
-      prevType: "num",
-    };
+    if (calc === "-") {
+      return {
+        calc: "-" + keySym,
+        result: "–" + keySym,
+        prevType: "num",
+      };
+    } else {
+      return {
+        calc: calc + keySym,
+        result: keySym,
+        twoBack: prevType,
+        prevType: "num",
+      };
+    }
   }
 };
 const handleDot = (state) => {
@@ -111,7 +119,6 @@ const handleOper = (state, id) => {
   let { calc, result, prevType } = state;
   const keySym = keys[id][0];
   const keyName = keys[id][1];
-  //! Test 0- fails change behavior after reset.
   if (prevType === "equal") {
     return {
       calc: result + keySym,
@@ -127,12 +134,20 @@ const handleOper = (state, id) => {
       prevType: "oper",
     };
   } else if (id === "subtract") {
-    return {
-      calc: calc + keySym,
-      result: result + keyName,
-      twoBack: prevType,
-      prevType: "oper",
-    };
+    if (calc === "0") {
+      return {
+        calc: keySym,
+        result: keyName,
+        prevType: "oper",
+      };
+    } else {
+      return {
+        calc: calc + keySym,
+        result: result + keyName,
+        twoBack: prevType,
+        prevType: "oper",
+      };
+    }
   } else {
     return {
       calc: calc.replace(/([+\-*/]+)$/, "") + keySym,
