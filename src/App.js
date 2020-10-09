@@ -16,7 +16,7 @@ const App = () => {
       <Keypad keyPressed={dispatch} keys={keys} className="Keypad" />
       <p>{prevType}</p>
       <p style={{ fontSize: "60%", backgroundColor: "white" }}>
-        by LazaroFilm - last update: Oct 8 9:56
+        by LazaroFilm - last update: Oct 8 11:49 PM
       </p>
     </div>
   );
