@@ -151,14 +151,14 @@ const handleEqual = (state) => {
   let { calc, prevType } = state;
   if (prevType === "dot") {
     return {
-      calc: "=",
+      calc: calc.slice(0, -1) + " =",
       result: format(evaluate(calc.slice(0, -1)), { precision: 14 }),
       twoBack: "equal",
       prevType: "equal",
     };
   }
   return {
-    calc: "=",
+    calc: calc + " =",
     result: format(evaluate(calc), { precision: 14 }),
     twoBack: "equal",
     prevType: "equal",
