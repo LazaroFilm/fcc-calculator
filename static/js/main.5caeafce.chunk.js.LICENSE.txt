@@ -1,0 +1,7 @@
+//! Test 0- fails change behavior after reset.
+
+//! check that there is a prevType existing
+
+//! make sure there is at least one char in calc and result
+
+//! needs to work with prevType num only
